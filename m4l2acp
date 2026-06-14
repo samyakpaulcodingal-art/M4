@@ -1,0 +1,150 @@
+# ==========================================================
+# ASSIGNMENT: MY QUIZ RESULT SEARCHER
+# ==========================================================
+
+# ----------------------------------------------------------
+# METHOD 1: DIRECT ACCESS (Constant Time - O(1))
+# ----------------------------------------------------------
+"""
+[METHOD 1: PSEUDOCODE]
+START
+    INPUT scores list, INPUT index
+    IF index is valid THEN
+        OUTPUT scores[index]
+    ELSE
+        OUTPUT "Invalid index"
+END
+"""
+
+def direct_access(scores, index):
+    # Time Complexity: O(1) - Best, Average, and Worst case are all same
+    # Space Complexity: O(1)
+    if 0 <= index < len(scores):
+        return scores[index]
+    return "Invalid index"
+
+
+# ----------------------------------------------------------
+# METHOD 2: LINEAR SEARCH (Linear Time - O(n))
+# ----------------------------------------------------------
+"""
+[METHOD 2: PSEUDOCODE]
+START
+    INPUT scores list, INPUT target_score
+    SET step_count = 0
+    FOR each score in scores:
+        step_count = step_count + 1
+        IF score EQUALS target_score THEN
+            PRINT step_count
+            RETURN True
+        END IF
+    END FOR
+    PRINT step_count
+    RETURN False
+END
+"""
+
+def linear_search(scores, target_score):
+    # Space Complexity: O(1)
+    step_count = 0
+    
+    for score in scores:
+        step_count += 1
+        if score == target_score:
+            print(f"[Linear Search] Target found! Steps taken: {step_count}")
+            return True
+            
+    print(f"[Linear Search] Target NOT found. Steps taken: {step_count}")
+    return False
+
+
+# ----------------------------------------------------------
+# METHOD 3: PAIR COMPARISON (Quadratic Time - O(n^2))
+# ----------------------------------------------------------
+"""
+[METHOD 3: PSEUDOCODE]
+START
+    INPUT scores list
+    SET step_count = 0
+    FOR i from 0 to length of scores:
+        FOR j from i+1 to length of scores:
+            step_count = step_count + 1
+            IF scores[i] EQUALS scores[j] THEN
+                PRINT "Duplicate found"
+            END IF
+        END FOR
+    END FOR
+    PRINT step_count
+END
+"""
+
+def pair_comparison(scores):
+    # Space Complexity: O(1)
+    step_count = 0
+    n = len(scores)
+    duplicate_found = False
+    
+    for i in range(n):
+        for j in range(i + 1, n):
+            step_count += 1
+            if scores[i] == scores[j]:
+                duplicate_found = True
+                
+    print(f"[Pair Comparison] Total comparisons (steps) made: {step_count}")
+    return duplicate_found
+
+
+# ==========================================================
+# EXECUTION / TESTING THE CODE
+# ==========================================================
+if __name__ == "__main__":
+    # Sample quiz scores of 5 students
+    quiz_scores = [85, 92, 78, 92, 89]
+    print(f"Quiz Scores List: {quiz_scores}\n")
+    
+    # 1. Testing Direct Access
+    print("--- 1. Direct Access Test ---")
+    print(f"Score at index 2: {direct_access(quiz_scores, 2)}\n")
+    
+    # 2. Testing Linear Search (Worst Case: Searching for a missing score)
+    print("--- 2. Linear Search Test ---")
+    linear_search(quiz_scores, 100) # 100 is not in the list (Worst Case)
+    linear_search(quiz_scores, 85)  # 85 is the first element (Best Case)
+    print()
+    
+    # 3. Testing Pair Comparison
+    print("--- 3. Pair Comparison Test ---")
+    pair_comparison(quiz_scores)
+    print()
+
+
+# ==========================================================
+# ASYMPTOTIC ANALYSIS & BIG-O REPORT
+# ==========================================================
+"""
+------------------------------------------------------------
+COMPLEXITY ANALYSIS TABLE
+------------------------------------------------------------
+| Method          | Best Case    | Average Case | Worst Case   | Big-O Notation |
+| :---            | :---         | :---         | :---         | :---           |
+| Direct Access   | Omega(1)     | Theta(1)     | O(1)         | O(1)           |
+| Linear Search   | Omega(1)     | Theta(n)     | O(n)         | O(n)           |
+| Pair Comparison | Omega(n^2)   | Theta(n^2)   | O(n^2)       | O(n^2)         |
+
+------------------------------------------------------------
+CONCEPT DEFINITIONS (As required by the assignment):
+------------------------------------------------------------
+1. Asymptotic Analysis: It is a method of defining the mathematical boundaries 
+   of an algorithm's performance in terms of input size (n).
+   
+2. Big-O (O): Represents the Upper Bound (Worst-case scenario).
+3. Omega (Ω): Represents the Lower Bound (Best-case scenario).
+4. Theta (Θ): Represents the Tight Bound (Average-case scenario).
+
+5. Direct Access O(1): The fastest method. It takes a single step regardless 
+   of the list size.
+6. Linear Search O(n): The execution steps grow linearly with the number of 
+   students. In the worst case, it checks every item once.
+7. Pair Comparison O(n^2): The slowest method. It uses nested loops to compare 
+   every student's score with every other student's score, resulting in quadratic growth.
+"""
