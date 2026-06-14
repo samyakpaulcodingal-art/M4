@@ -1,0 +1,83 @@
+# ==========================================================
+# ASSIGNMENT: 2DIGIT PRIMES FILTER
+# ==========================================================
+
+# ----------------------------------------------------------
+# METHOD: CHECKING PRIME UP TO SQUARE ROOT (Efficient Way)
+# ----------------------------------------------------------
+"""
+[PSEUDOCODE]
+START
+    SET prime_list = empty list
+    
+    FOR num from 10 to 99:
+        SET is_prime = True
+        
+        
+        FOR i from 2 to square root of num:
+            IF num MOD i EQUALS 0 THEN
+                SET is_prime = False
+                BREAK loop
+            END IF
+        END FOR
+        
+        IF is_prime EQUALS True THEN
+            APPEND num to prime_list
+        END IF
+    END FOR
+    
+    OUTPUT prime_list
+END
+"""
+
+def is_prime_number(num):
+
+    if num <= 1:
+        return False
+        
+
+    if num == 2:
+        return True
+
+    if num % 2 == 0:
+        return False
+        
+ 
+    # Time Complexity per check: O(sqrt(n))
+    for i in range(3, int(num**0.5) + 1, 2):
+        if num % i == 0:
+            return False 
+            
+    return True
+
+
+def find_two_digit_primes():
+   য
+    two_digit_primes = []
+    
+    for number in range(10, 100):
+        if is_prime_number(number):
+            two_digit_primes.append(number)
+            
+    return two_digit_primes
+
+
+# ==========================================================
+# EXECUTION / TESTING THE CODE
+# ==========================================================
+if __name__ == "__main__":
+    print("--- 2-Digit Prime Numbers Finder ---")
+    
+ 
+    primes = find_two_digit_primes()
+    
+    print(f"\nFound total {len(primes)} prime numbers with exactly 2 digits:\n")
+    print(primes)
+    print("-" * 50)
+
+
+# ==========================================================
+# PROJECT THEORY & CONCEPT EXPLANATION
+# ==========================================================
+"""
+--------------------------------------------------------
