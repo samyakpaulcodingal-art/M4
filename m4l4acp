@@ -1,0 +1,63 @@
+# ==========================================================
+# ASSIGNMENT: BINARY TO DECIMAL CONVERTER
+# ==========================================================
+
+# ----------------------------------------------------------
+# METHOD 1: CONVERSION USING MATHEMATICAL LOGIC (Loop-based)
+# ----------------------------------------------------------
+"""
+[METHOD 1: PSEUDOCODE]
+START
+    INPUT binary_string
+    SET decimal_value = 0
+    SET base = 1
+    FOR each character in binary_string from right to left:
+        digit = integer value of character
+        decimal_value = decimal_value + (digit * base)
+        base = base * 2
+    END FOR
+    OUTPUT decimal_value
+END
+"""
+
+def binary_to_decimal_loop(binary_str):
+    # Time Complexity: O(n) where n is the number of bits
+    # Space Complexity: O(1)
+    decimal_value = 0
+    base = 1  # 2^0 = 1
+    
+    # Right to left লুপ চালানোর জন্য স্ট্রিংটিকে রিভার্স করে নেওয়া হয়েছে
+    for digit in reversed(binary_str):
+        if digit == '1':
+            decimal_value += base
+        elif digit != '0':
+            return "Invalid Binary Number!"  # ০ বা ১ ছাড়া অন্য সংখ্যা থাকলে
+        base *= 2  # বেস ২ গুণ করে বাড়বে (১, ২, ৪, ৮, ১৬...)
+        
+    return decimal_value
+
+
+# ----------------------------------------------------------
+# METHOD 2: CONVERSION USING PYTHON'S BUILT-IN FUNCTION
+# ----------------------------------------------------------
+"""
+[METHOD 2: PSEUDOCODE]
+START
+    INPUT binary_string
+    CONVERT binary_string to integer with base 2 using int()
+    OUTPUT result
+END
+"""
+
+def binary_to_decimal_builtin(binary_str):
+    try:
+        # int(string, base) ফাংশন সরাসরি যেকোনো বেস থেকে ডেসিমেল করে দেয়
+        return int(binary_str, 2)
+    except ValueError:
+        return "Invalid Binary Number!"
+
+
+# ==========================================================
+# EXECUTION / TESTING THE CODE
+# ==========================================================
+if __name__ == "__main__":
