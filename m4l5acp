@@ -1,0 +1,68 @@
+# ==========================================================
+# ASSIGNMENT: LEAST COMMON MULTIPLE (LCM)
+# ==========================================================
+
+# ----------------------------------------------------------
+# METHOD: EFFICIENT LCM CALCULATION USING GCD (Euclidean Algorithm)
+# ----------------------------------------------------------
+"""
+[PSEUDOCODE]
+START
+    INPUT num1, num2
+    
+    # GCD (HCF) বের করার লজিক
+    SET a = num1, b = num2
+    WHILE b is not 0:
+        SET temp = b
+        b = a MOD b
+        a = temp
+    END WHILE
+    SET gcd = a
+    
+    # সুত্র ব্যবহার করে LCM বের করার লজিক
+    SET lcm = (num1 * num2) / gcd
+    
+    OUTPUT lcm
+END
+"""
+
+def find_gcd(a, b):
+    # Euclidean Algorithm ব্যবহার করে দ্রুত GCD বের করা
+    while b:
+        a, b = b, a % b
+    return a
+
+def find_lcm(num1, num2):
+    # Formula: LCM(a, b) = (a * b) / GCD(a, b)
+    # Time Complexity: O(log(min(num1, num2))) - অত্যন্ত দ্রুত কাজ করে
+    # Space Complexity: O(1)
+    
+    if num1 == 0 or num2 == 0:
+        return 0
+        
+    gcd = find_gcd(num1, num2)
+    lcm = (num1 * num2) // gcd
+    return lcm
+
+
+# ==========================================================
+# EXECUTION / TESTING THE CODE (With User Input)
+# ==========================================================
+if __name__ == "__main__":
+    print("--- Least Common Multiple (LCM) Finder ---")
+    
+    # ইউজার থেকে ইনপুট নেওয়ার অংশ
+    try:
+        number1 = int(input("Enter first number: "))
+        number2 = int(input("Enter second number: "))
+        
+        # LCM গণনা করা
+        result_lcm = find_lcm(number1, number2)
+        result_gcd = find_gcd(number1, number2)
+        
+        print("\n-----------------------------------------")
+        print(f"The GCD of {number1} and {number2} is: {result_gcd}")
+        print(f"The LCM of {number1} and {number2} is: {result_lcm}")
+        print("-----------------------------------------")
+        
+    except ValueError:
