@@ -1,0 +1,111 @@
+# ==========================================================
+# ASSIGNMENT: MY TRAIN SEAT FINDER
+# ==========================================================
+
+# ----------------------------------------------------------
+# METHOD 1: ITERATIVE BINARY SEARCH (Loop-based)
+# ----------------------------------------------------------
+"""
+[METHOD 1: PSEUDOCODE]
+START
+    INPUT sorted_seats, target_seat
+    SET low = 0, high = length of sorted_seats - 1
+    WHILE low <= high:
+        SET mid = (low + high) / 2
+        IF sorted_seats[mid] EQUALS target_seat THEN
+            RETURN mid
+        ELSE IF sorted_seats[mid] < target_seat THEN
+            SET low = mid + 1
+        ELSE
+            SET high = mid - 1
+        END IF
+    END WHILE
+    RETURN -1 (Not found)
+END
+"""
+
+def binary_search_iterative(sorted_seats, target_seat):
+    # Time Complexity: O(log n)
+    # Space Complexity: O(1) - No extra memory or stack spaces used
+    low = 0
+    high = len(sorted_seats) - 1
+    step_count = 0
+    
+    while low <= high:
+        step_count += 1
+        mid = (low + high) // 2
+        
+        if sorted_seats[mid] == target_seat:
+            print(f"[Iterative] Seat found at index {mid}. Steps (iterations): {step_count}")
+            return mid
+        elif sorted_seats[mid] < target_seat:
+            low = mid + 1
+        else:
+            high = mid - 1
+            
+    print(f"[Iterative] Seat not found. Steps (iterations): {step_count}")
+    return -1
+
+
+# ----------------------------------------------------------
+# METHOD 2: RECURSIVE BINARY SEARCH (Function calling itself)
+# ----------------------------------------------------------
+"""
+[METHOD 2: PSEUDOCODE]
+START function binary_search_recursive(sorted_seats, low, high, target_seat, current_depth):
+    IF low > high THEN
+        RETURN -1, current_depth
+    END IF
+    
+    SET mid = (low + high) / 2
+    IF sorted_seats[mid] EQUALS target_seat THEN
+        RETURN mid, current_depth
+    ELSE IF sorted_seats[mid] < target_seat THEN
+        RETURN binary_search_recursive(sorted_seats, mid + 1, high, target_seat, current_depth + 1)
+    ELSE
+        RETURN binary_search_recursive(sorted_seats, low, mid - 1, target_seat, current_depth + 1)
+    END IF
+END function
+"""
+
+def binary_search_recursive(sorted_seats, low, high, target_seat, current_depth=1):
+    # Time Complexity: O(log n)
+    # Space Complexity: O(log n) - Due to Call Stack frames stored in memory
+    
+    if low > high:
+        return -1, current_depth - 1
+        
+    mid = (low + high) // 2
+    
+    if sorted_seats[mid] == target_seat:
+        return mid, current_depth
+    elif sorted_seats[mid] < target_seat:
+        return binary_search_recursive(sorted_seats, mid + 1, high, target_seat, current_depth + 1)
+    else:
+        return binary_search_recursive(sorted_seats, low, mid - 1, target_seat, current_depth + 1)
+
+
+# ==========================================================
+# EXECUTION / TESTING THE CODE
+# ==========================================================
+if __name__ == "__main__":
+    # Sorted list of train seat numbers
+    train_seats = [12, 18, 25, 33, 42, 50, 61, 75, 88, 99]
+    search_for = 75
+    
+    print(f"Sorted Train Seats: {train_seats}")
+    print(f"Searching for Seat Number: {search_for}\n")
+    
+    # 1. Test Iterative Method
+    print("--- 1. Iterative Binary Search ---")
+    binary_search_iterative(train_seats, search_for)
+    print()
+    
+    # 2. Test Recursive Method
+    print("--- 2. Recursive Binary Search ---")
+    idx, stack_depth = binary_search_recursive(train_seats, 0, len(train_seats) - 1, search_for)
+    if idx != -1:
+        print(f"[Recursive] Seat found at index {idx}.")
+        print(f"[Recursive] Call Stack Usage (Max Depth / Functions on stack): {stack_depth}")
+    else:
+        print("[Recursive] Seat not found.")
