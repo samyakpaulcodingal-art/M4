@@ -1,0 +1,120 @@
+# ==========================================
+# ASSIGNMENT: MY RUNNING LAP TRACKER
+# ==========================================
+
+# ------------------------------------------
+# METHOD 1: USING A FORMULA (Constant Time)
+# ------------------------------------------
+"""
+[METHOD 1: PSEUDOCODE]
+START
+    INPUT n (number of laps)
+    CALCULATE total_points = (n * (n + 1)) / 2
+    OUTPUT total_points
+END
+"""
+
+def tracker_formula(n):
+    # Time Complexity: O(1) - Constant Time
+    # Space Complexity: O(1)
+    total_points = (n * (n + 1)) // 2
+    return total_points
+
+
+# ------------------------------------------
+# METHOD 2: USING A SINGLE LOOP (Linear Time)
+# ------------------------------------------
+"""
+[METHOD 2: PSEUDOCODE]
+START
+    INPUT n
+    SET total_points = 0
+    FOR i from 1 to n:
+        total_points = total_points + i
+    END FOR
+    OUTPUT total_points
+END
+"""
+
+def tracker_loop(n):
+    # Time Complexity: O(n) - Linear Time
+    # Space Complexity: O(1)
+    total_points = 0
+    step_count = 0
+    
+    for i in range(1, n + 1):
+        total_points += i
+        step_count += 1  # Counting each loop iteration
+        
+    print(f"[Loop Method] Total steps taken: {step_count}")
+    return total_points
+
+
+# ------------------------------------------
+# METHOD 3: USING A NESTED LOOP (Quadratic Time)
+# ------------------------------------------
+"""
+[METHOD 3: PSEUDOCODE]
+START
+    INPUT n
+    SET total_points = 0
+    FOR i from 1 to n:
+        FOR j from 1 to i:
+            total_points = total_points + 1
+        END FOR
+    END FOR
+    OUTPUT total_points
+END
+"""
+
+def tracker_nested_loop(n):
+    # Time Complexity: O(n^2) - Quadratic Time
+    # Space Complexity: O(1)
+    total_points = 0
+    step_count = 0
+    
+    for i in range(1, n + 1):
+        for j in range(1, i + 1):
+            total_points += 1
+            step_count += 1  # Counting every inner loop execution
+            
+    print(f"[Nested Loop Method] Total steps taken: {step_count}")
+    return total_points
+
+
+# ==========================================
+# EXECUTION / TESTING THE CODE
+# ==========================================
+if __name__ == "__main__":
+    laps = 5
+    print(f"--- Running Lap Tracker for {laps} Laps ---\n")
+    
+    # Test Method 1
+    res1 = tracker_formula(laps)
+    print(f"Formula Method Result: {res1}\n")
+    
+    # Test Method 2
+    res2 = tracker_loop(laps)
+    print(f"Loop Method Result: {res2}\n")
+    
+    # Test Method 3
+    res3 = tracker_nested_loop(laps)
+    print(f"Nested Loop Method Result: {res3}\n")
+
+
+# ==========================================
+# ALGORITHM COMPARISON & EFFICIENCY REPORT
+# ==========================================
+"""
+| Method         | Time Complexity | Space Complexity | Steps for N = 5 | Efficiency Rating   |
+| :---           | :---            | :---             | :---            | :---                |
+| Formula        | O(1) (Constant) | O(1)             | 1 step          | Most Efficient (Best)|
+| Single Loop    | O(N) (Linear)   | O(1)             | 5 steps         | Moderately Efficient|
+| Nested Loop    | O(N^2) (Quadratic)| O(1)           | 15 steps        | Least Efficient (Worst)|
+
+[Conclusion]:
+The Formula-based solution is the most efficient because it calculates the total 
+points in just a single mathematical step, regardless of how large N is. 
+The Nested Loop is the least efficient as the number of steps grows drastically 
+as the number of laps increases.
+"""
